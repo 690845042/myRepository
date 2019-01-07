@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="angular.min.js"></script>
+    <title>申帅出品</title>
+    <script>
+		var app = angular.module("myApp",[]);
+		app.controller("myController",function($scope,$http){
+			$scope.findAll=function(){
+				alert("我执行了")
+				$http.get("brand/findAll.do").success(
+					function(response){
+						$scope.list=response;
+					}		
+				);
+			}
+			
+		});
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myController" ">
+    <center><h1>数据库</h1></center>
+	<table>
+		<tr>
+			<td>首字母</td>
+			<td>排序</td>
+			<td>品牌</td>
+		</tr>
+		<tr ng-repeat="entity in list">
+			<td>{{entity.firstChar}}</td>
+			<td>{{entity.id}}</td>
+			<td>{{entity.name}}</td>
+		</tr>
+	</table>
+
+    <input type="button" value="查询" ng-click="findAll()">
+</body>
+</html>
